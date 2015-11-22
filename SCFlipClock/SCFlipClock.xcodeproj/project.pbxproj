@@ -13,7 +13,7 @@
 		4006ACDC1BFEFDCD00461E84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4006ACDB1BFEFDCD00461E84 /* Assets.xcassets */; };
 		4006ACDF1BFEFDCD00461E84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4006ACDD1BFEFDCD00461E84 /* LaunchScreen.storyboard */; };
 		4006ACE71BFEFF2400461E84 /* SCFlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4006ACE61BFEFF2400461E84 /* SCFlipView.swift */; };
-		4006ACE91BFF1C4600461E84 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4006ACE81BFF1C4600461E84 /* 1.jpg */; };
+		4006ACE91BFF1C4600461E84 /* 01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4006ACE81BFF1C4600461E84 /* 01.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		4006ACDE1BFEFDCD00461E84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4006ACE01BFEFDCD00461E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4006ACE61BFEFF2400461E84 /* SCFlipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCFlipView.swift; sourceTree = "<group>"; };
-		4006ACE81BFF1C4600461E84 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		4006ACE81BFF1C4600461E84 /* 01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 01.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 				4006ACD41BFEFDCD00461E84 /* AppDelegate.swift */,
 				4006ACD61BFEFDCD00461E84 /* ViewController.swift */,
 				4006ACE61BFEFF2400461E84 /* SCFlipView.swift */,
-				4006ACE81BFF1C4600461E84 /* 1.jpg */,
+				4006ACE81BFF1C4600461E84 /* 01.jpg */,
 				4006ACD81BFEFDCD00461E84 /* Main.storyboard */,
 				4006ACDB1BFEFDCD00461E84 /* Assets.xcassets */,
 				4006ACDD1BFEFDCD00461E84 /* LaunchScreen.storyboard */,
@@ -130,7 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4006ACDF1BFEFDCD00461E84 /* LaunchScreen.storyboard in Resources */,
-				4006ACE91BFF1C4600461E84 /* 1.jpg in Resources */,
+				4006ACE91BFF1C4600461E84 /* 01.jpg in Resources */,
 				4006ACDC1BFEFDCD00461E84 /* Assets.xcassets in Resources */,
 				4006ACDA1BFEFDCD00461E84 /* Main.storyboard in Resources */,
 			);
@@ -295,6 +295,7 @@
 				4006ACE51BFEFDCD00461E84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

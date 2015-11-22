@@ -9,40 +9,35 @@
 import Foundation
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SCFlipViewDelegate {
 
     var flip: SCFlipView?
-    
+    let disLink: CADisplayLink = CADisplayLink()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
-        let flipView = SCFlipView.init(image: UIImage(named: "1.jpg")!, frame: CGRectMake(0, 0, 200, 200))
+        let flipView = SCFlipView.init(imageKey: "01.jpg", frame: CGRectMake(0, 0, 200, 200))
         flipView.center = self.view.center
+        flipView.delegate = self
         self.view.addSubview(flipView)
         flip = flipView
         let button = UIButton.init(frame: CGRectMake(0, 0, 50, 50))
         button.addTarget(self, action: Selector("click:"), forControlEvents:.TouchUpInside)
         button.backgroundColor = UIColor.blueColor()
         self.view.addSubview(button)
+        
     }
     
     func click(sender: UIButton) {
-//        flip!.flip()
-        let angle = CGFloat(M_PI)
-        var trans = CATransform3DMakeRotation(angle, 1.0, 0, 0)
-        trans.m34 = -1 / 500.0
-        
-        //        let baseAnimation = CABasicAnimation()
-        //        baseAnimation.duration = 1.0
-        //        baseAnimation.repeatCount = HUGE
-        //        baseAnimation.keyPath = "transform"
-        //        baseAnimation.toValue = NSValue.init(CATransform3D: trans)
-        //        topLayer.addAnimation(baseAnimation, forKey: "Flip")
-        UIView.animateWithDuration(7.0) { () -> Void in
-            self.flip?.topLayer.transform = trans
-            self.view.setNeedsDisplay()
-        }
+        flip!.flip()
 
+    }
+    
+    func flipViewanimationDidStop(flipView: SCFlipView, index: Int) {
+        print("flipViwe animation stop \(index)")
+        flipView.removeFromSuperview()
     }
 
     override func didReceiveMemoryWarning() {

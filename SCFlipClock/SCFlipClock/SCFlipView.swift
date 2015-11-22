@@ -12,10 +12,14 @@ import UIKit
 
 class SCFlipView: UIView {
     
+    let imageKey: String
     let image: UIImage
-    let space = CGFloat(2.5)   //中间空隙
-    let topLayer = CALayer()
-    let bottomLayer = CALayer()
+    let space = CGFloat(2.5)          //中间空隙
+    let topLayer = CALayer()          //上面的图片
+    let bottomLayer = CALayer()       //下面的图片
+    let gradLayer = CAGradientLayer()  // 阴影视图
+    
+    var delegate: SCFlipViewDelegate?   //设置代理
     var width:CGFloat {
         return self.bounds.width
     }
@@ -23,8 +27,9 @@ class SCFlipView: UIView {
         return self.bounds.height
     }
     
-    init(image: UIImage, frame: CGRect) {
-        self.image = image
+    init(imageKey: String, frame: CGRect) {
+        self.imageKey = imageKey
+        self.image = UIImage(named: imageKey)!
         super.init(frame: frame)
         commomInit()
         
@@ -51,9 +56,14 @@ class SCFlipView: UIView {
         
         initLayer(topLayer)
         initLayer(bottomLayer)
+        
+        gradLayer.frame = CGRectMake(0, height / 2, width, height / 2)
+        gradLayer.colors = [UIColor.lightGrayColor().CGColor, UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor, UIColor.whiteColor().CGColor]
+        gradLayer.opacity = 0.0
+        
         self.layer.addSublayer(topLayer)
         self.layer.addSublayer(bottomLayer)
-//        flip()
+        self.layer.addSublayer(gradLayer)
     }
     
     func initLayer(layer: CALayer) {
@@ -66,15 +76,43 @@ class SCFlipView: UIView {
         var trans = CATransform3DMakeRotation(angle, 1.0, 0, 0)
         trans.m34 = -1 / 500.0
         
-//        let baseAnimation = CABasicAnimation()
-//        baseAnimation.duration = 1.0
+        let baseAnimation = CABasicAnimation()
+        baseAnimation.duration = 1.0
 //        baseAnimation.repeatCount = HUGE
-//        baseAnimation.keyPath = "transform"
-//        baseAnimation.toValue = NSValue.init(CATransform3D: trans)
-//        topLayer.addAnimation(baseAnimation, forKey: "Flip")
-        UIView.animateWithDuration(2.0) { () -> Void in
-            self.topLayer.transform = trans
-            
-        }
+        baseAnimation.delegate = self
+        baseAnimation.keyPath = "transform"
+        baseAnimation.toValue = NSValue.init(CATransform3D: trans)
+        
+        topLayer.addAnimation(baseAnimation, forKey: "Flip")
+        
+        let gradAnimation = CABasicAnimation()
+        gradAnimation.duration = 1.0
+//        gradAnimation.repeatCount = HUGE
+        gradAnimation.keyPath = "opacity"
+        gradAnimation.toValue = CGFloat(1.0)
+        
+        gradLayer.addAnimation(gradAnimation, forKey: "OPACITY")
+    }
+    
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        
+        let index = imageKey.substringToIndex(imageKey.startIndex.advancedBy(2))
+        self.delegate?.flipViewanimationDidStop(self, index: Int(index)!)
+        
     }
 }
+
+
+protocol SCFlipViewDelegate {
+    func flipViewanimationDidStop (flipView: SCFlipView, index: Int)
+}
+
+
+
+
+
+
+
+
+
+

@@ -78,7 +78,6 @@ class SCFlipView: UIView {
         
         let baseAnimation = CABasicAnimation()
         baseAnimation.duration = 1.0
-//        baseAnimation.repeatCount = HUGE
         baseAnimation.delegate = self
         baseAnimation.keyPath = "transform"
         baseAnimation.toValue = NSValue.init(CATransform3D: trans)
@@ -86,12 +85,16 @@ class SCFlipView: UIView {
         topLayer.addAnimation(baseAnimation, forKey: "Flip")
         
         let gradAnimation = CABasicAnimation()
-        gradAnimation.duration = 1.0
-//        gradAnimation.repeatCount = HUGE
+        gradAnimation.duration = 0.5
+        gradAnimation.beginTime = CACurrentMediaTime() + 0.5
         gradAnimation.keyPath = "opacity"
         gradAnimation.toValue = CGFloat(1.0)
         
+        let animationGroup = CAAnimationGroup()
+        animationGroup.animations = [baseAnimation, gradAnimation]
+        
         gradLayer.addAnimation(gradAnimation, forKey: "OPACITY")
+//        gradLayer.addAnimation(animationGroup, forKey: "Flip")
     }
     
     override func animationDidStop(anim: CAAnimation, finished flag: Bool) {

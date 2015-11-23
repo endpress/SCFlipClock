@@ -12,32 +12,50 @@ import UIKit
 class ViewController: UIViewController, SCFlipViewDelegate {
 
     var flip: SCFlipView?
-    let disLink: CADisplayLink = CADisplayLink()
+    var disLink: CADisplayLink?
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib.
         let flipView = SCFlipView.init(imageKey: "01.jpg", frame: CGRectMake(0, 0, 200, 200))
         flipView.center = self.view.center
         flipView.delegate = self
-        self.view.addSubview(flipView)
         flip = flipView
+        self.view.addSubview(flipView)
+        
         let button = UIButton.init(frame: CGRectMake(0, 0, 50, 50))
         button.addTarget(self, action: Selector("click:"), forControlEvents:.TouchUpInside)
         button.backgroundColor = UIColor.blueColor()
         self.view.addSubview(button)
         
+        disLink = CADisplayLink.init(target: self, selector: Selector("startClock"))
+        disLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        disLink?.paused = true
     }
     
     func click(sender: UIButton) {
-        flip!.flip()
-
+        print("flip == \(flip)")
+        flip?.flip()
     }
     
     func flipViewanimationDidStop(flipView: SCFlipView, index: Int) {
         print("flipViwe animation stop \(index)")
         flipView.removeFromSuperview()
+        flip = nil
+        addFlipView()
+    }
+    
+    func startClock() {
+        
+    }
+    
+    func addFlipView() {
+        let flipView = SCFlipView.init(imageKey: "01.jpg", frame: CGRectMake(0, 0, 200, 200))
+        flipView.center = self.view.center
+        flipView.delegate = self
+        flipView.flip()
+        self.view.addSubview(flipView)
     }
 
     override func didReceiveMemoryWarning() {
